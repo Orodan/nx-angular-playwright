@@ -2,7 +2,9 @@
   "name": "@nx-angular-playwright/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "e2e:server": "docker run -p 3000:3000 -p 4200:4200 --rm --init -it --workdir /home/pwuser --user pwuser mcr.microsoft.com/playwright:v1.51.0-noble /bin/sh -c \"npx -y playwright@1.51.0 run-server --port 3000 --host 0.0.0.0\""
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~19.2.0",

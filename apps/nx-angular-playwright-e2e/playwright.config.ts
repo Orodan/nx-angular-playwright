@@ -21,6 +21,9 @@ export default defineConfig({
     baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    connectOptions: {
+      wsEndpoint: 'ws://127.0.0.1:3000/'
+    }
   },
   /* Run your local dev server before starting the tests */
   webServer: {

@@ -59,7 +59,10 @@
           "buildTarget": "second-angular-app:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      } 
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -81,7 +84,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "second-angular-app:build",
-        "port": 4200,
+        "port": 4201,
         "staticFilePath": "dist/apps/second-angular-app/browser",
         "spa": true
       }

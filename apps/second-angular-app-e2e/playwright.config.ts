@@ -2,8 +2,10 @@ import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { workspaceRoot } from '@nx/devkit';
 
+import { getHostIP } from '@nx-angular-playwright/e2e-config';
+
 // For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+const baseURL = process.env['BASE_URL'] || `http://${getHostIP()}:4201`;
 
 /**
  * Read environment variables from file.
@@ -21,11 +23,14 @@ export default defineConfig({
     baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    connectOptions: {
+      wsEndpoint: 'ws://127.0.0.1:3000/'
+    }
   },
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'npx nx run second-angular-app:serve',
-    url: 'http://localhost:4200',
+    command: 'npx nx run second-angular-app:serve -- --host 0.0.0.0',
+    url: 'http://localhost:4201',
     reuseExistingServer: !process.env['CI'],
     cwd: workspaceRoot,
   },

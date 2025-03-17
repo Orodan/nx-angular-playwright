@@ -9,18 +9,24 @@ import { platform } from 'os';
 // des navigateurs locaux où dans un container.
 const getHostIP = () => {
   try {
-    if (platform() === 'darwin') { 
+    if (platform() === 'darwin') {
       // macOS : Trouver l'IP locale
-      return execSync("ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'")
-        .toString().split("\n")[0].trim();
-    } else if (platform() === 'linux') { 
+      return execSync(
+        "ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'"
+      )
+        .toString()
+        .split('\n')[0]
+        .trim();
+    } else if (platform() === 'linux') {
       // Linux (Ubuntu, Debian...) : Trouver l'IP locale
-      return execSync("ip route | grep default | awk '{print $3}'")
-        .toString().trim();
+      return execSync("hostname -I | awk '{print $1}'").toString().trim();
     } else if (platform() === 'win32') {
       // Windows : Trouver l'IP locale
-      return execSync("powershell -Command \"(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -NotLike 'Loopback*'}).IPAddress | Select-Object -First 1\"")
-        .toString().trim();
+      return execSync(
+        'powershell -Command "(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -NotLike \'Loopback*\'}).IPAddress | Select-Object -First 1"'
+      )
+        .toString()
+        .trim();
     } else {
       throw new Error(`OS non supporté: ${platform()}`);
     }
@@ -50,8 +56,8 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     connectOptions: {
-      wsEndpoint: 'ws://127.0.0.1:3000/'
-    }
+      wsEndpoint: 'ws://127.0.0.1:3000/',
+    },
   },
   /* Run your local dev server before starting the tests */
   webServer: {

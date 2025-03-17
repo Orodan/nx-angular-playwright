@@ -1,0 +1,9 @@
+{
+  "name": "nx-angular-playwright-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/nx-angular-playwright-e2e/src",
+  "implicitDependencies": ["nx-angular-playwright"],
+  "// targets": "to see all targets run: nx show project nx-angular-playwright-e2e --web",
+  "targets": {}
+}
